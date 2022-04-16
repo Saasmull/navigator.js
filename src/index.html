@@ -18,7 +18,7 @@
     var isDesktopMode = false;
     var os = ["Windows", "ChromeOS", "Android", "Linux", "macOS", "iOS", "iPadOS"];
     var HTMLengine = ["Trident", "EdgeHTML", "Gecko", "Blink", "Webkit", "Presto"];
-    var JSengine = ["COM Classic","Chakra (JScript)", "Chakra", "SpiderMonkey", "V8", "JavaScriptCore", "Presto"];
+    var JSengine = ["COM Classic", "Chakra (JScript)", "Chakra", "SpiderMonkey", "V8", "JavaScriptCore", "Presto"];
     var platforms = ["IE", "Edge", "Chrome", "Firefox", "Opera", "Chrome Android", "Firefox Android", "Safari", "Safari iOS", "Chrome hiOS"];
     var browsers = {
         "IE":{
@@ -838,6 +838,15 @@
         document.write("other")
     }
 
+    function coalesceSupport(){
+        try{
+            eval("bar = null; foo = bar ?? false;");
+            return true;
+        }catch(e){
+            return false;
+        }
+    }
+
     function supportsWebp(){
         var elem = document.createElement("canvas");
         if(!!(elem.getContext && elem.getContext("2d"))){
@@ -958,99 +967,189 @@
                 setBrowserVersionsToFalse("Firefox Android", "97", "100");
                 console.log("no Layer");
                 if("destination" in Request.prototype){
-                    if("at" in Array.prototype){
-                        console.log("Array.at()")
-                        setBrowserVersionsToFalse("Firefox", "50", "89");
-                        setBrowserVersionsToFalse("Firefox Android", "50", "89");
-                        if("MathMLElement" in window){
-                            setBrowserVersionsToFalse("Firefox", "50", "70");
-                            if("tabSize" in document.documentElement.style){
-                                console.log("tab-size")
-                                setBrowserVersionsToFalse("Firefox", "50", "90");
-                                setBrowserVersionsToFalse("Firefox Android", "50", "90");
-                                if("onselectionchange" in HTMLInputElement.prototype || "onselectionchange" in window){
-                                    setBrowserVersionsToFalse("Firefox", "50", "91");
-                                    setBrowserVersionsToFalse("Firefox Android", "50", "91");
-                                    if("onslotchange" in window){
-                                        setBrowserVersionsToFalse("Firefox", "50", "92");
-                                        setBrowserVersionsToFalse("Firefox Android", "50", "92");
-                                        if("structuredClone" in window){
-                                            setBrowserVersionsToFalse("Firefox", "50", "93");
-                                            setBrowserVersionsToFalse("Firefox Android", "50", "93");
-                                            if("randomUUID" in crypto || ("inputMode" in HTMLInputElement.prototype && CSS.supports("(cursor:pointer)"))){
-                                                setBrowserVersionsToFalse("Firefox", "50", "94");
-                                                setBrowserVersionsToFalse("Firefox Android", "50", "94");
-                                                if("toBlob" in HTMLCanvasElement.prototype){
-                                                    setBrowserVersionsToFalse("Firefox", "50", "95");
-                                                    setBrowserVersionsToFalse("Firefox Android", "50", "95");
-                                                }else{
-                                                    setBrowserVersionsToFalse("Firefox", "96", "100");
-                                                    setBrowserVersionsToFalse("Firefox Android", "96", "100");
-                                                }
-                                            }else{
-                                                setBrowserVersionsToFalse("Firefox", "95", "100");
-                                                setBrowserVersionsToFalse("Firefox Android", "95", "100");
-                                            }
-                                        }else{
-                                            setBrowserVersionsToFalse("Firefox", "94", "100");
-                                            setBrowserVersionsToFalse("Firefox Android", "94", "100");
-                                        }
-                                    }else{
-                                        setBrowserVersionsToFalse("Firefox", "93", "100");
-                                        setBrowserVersionsToFalse("Firefox Android", "93", "100");
-                                    }
-                                }else{
-                                    setBrowserVersionsToFalse("Firefox", "92", "100");
-                                    setBrowserVersionsToFalse("Firefox Android", "92", "100");
-                                }
-                                //setBrowserVersionsToFalse("Firefox","92","100");
-                                //setBrowserVersionsToFalse("Firefox Android","92","100");
-                            }else{
-                                setBrowserVersionsToFalse("Firefox", "91", "100");
-                                setBrowserVersionsToFalse("Firefox Android", "91", "100");
-                            }
-                        }else{
-                            if("flat" in Array.prototype){
-                                setBrowserVersionsToFalse("Firefox", "50", "61");
-                                if("gap" in document.body.style){
-                                    setBrowserVersionsToFalse("Firefox", "50", "62");
-                                    if("startMessages" in ServiceWorkerContainer.prototype){
-                                        setBrowserVersionsToFalse("Firefox", "50", "63");
-                                        if("RelativeTimeFormat" in Intl){
-                                            setBrowserVersionsToFalse("Firefox", "50", "64");
-                                            if("inputType" in InputEvent.prototype){
-                                                setBrowserVersionsToFalse("Firefox", "50", "65");
-                                                if("revert" in document.body.style){
-                                                    setBrowserVersionsToFalse("Firefox", "50", "66");
-                                                    if("BigInt64Array" in window){
-                                                        setBrowserVersionsToFalse("Firefox", "50", "67");
-                                                        if(!0){/*f*/
-                                                        }//TODO: next task
+                    setBrowserVersionsToFalse("Firefox", "50", "60");
+                    if("MathMLElement" in window){
+                        setBrowserVersionsToFalse("Firefox", "50", "70");
+                        if(CSS.supports("overflow", "clip") || CSS.supports("(overflow:clip)")){
+                            setBrowserVersionsToFalse("Firefox", "50", "80");
+                            if("at" in Array.prototype){
+                                console.log("Array.at()")
+                                setBrowserVersionsToFalse("Firefox", "50", "89");
+                                setBrowserVersionsToFalse("Firefox Android", "50", "89");
+                                if("tabSize" in document.documentElement.style){
+                                    console.log("tab-size")
+                                    setBrowserVersionsToFalse("Firefox", "50", "90");
+                                    setBrowserVersionsToFalse("Firefox Android", "50", "90");
+                                    if("onselectionchange" in HTMLInputElement.prototype || "onselectionchange" in window){
+                                        setBrowserVersionsToFalse("Firefox", "50", "91");
+                                        setBrowserVersionsToFalse("Firefox Android", "50", "91");
+                                        if("onslotchange" in window){
+                                            setBrowserVersionsToFalse("Firefox", "50", "92");
+                                            setBrowserVersionsToFalse("Firefox Android", "50", "92");
+                                            if("structuredClone" in window){
+                                                setBrowserVersionsToFalse("Firefox", "50", "93");
+                                                setBrowserVersionsToFalse("Firefox Android", "50", "93");
+                                                if("randomUUID" in crypto || ("inputMode" in HTMLInputElement.prototype && CSS.supports("(cursor:pointer)"))){
+                                                    setBrowserVersionsToFalse("Firefox", "50", "94");
+                                                    setBrowserVersionsToFalse("Firefox Android", "50", "94");
+                                                    if("toBlob" in HTMLCanvasElement.prototype){
+                                                        setBrowserVersionsToFalse("Firefox", "50", "95");
+                                                        setBrowserVersionsToFalse("Firefox Android", "50", "95");
                                                     }else{
-                                                        setBrowserVersionsToFalse("Firefox", "68", "100");
+                                                        setBrowserVersionsToFalse("Firefox", "96", "100");
+                                                        setBrowserVersionsToFalse("Firefox Android", "96", "100");
                                                     }
                                                 }else{
-                                                    setBrowserVersionsToFalse("Firefox", "67", "100");
+                                                    setBrowserVersionsToFalse("Firefox", "95", "100");
+                                                    setBrowserVersionsToFalse("Firefox Android", "95", "100");
                                                 }
                                             }else{
-                                                setBrowserVersionsToFalse("Firefox", "66", "100");
+                                                setBrowserVersionsToFalse("Firefox", "94", "100");
+                                                setBrowserVersionsToFalse("Firefox Android", "94", "100");
                                             }
                                         }else{
-                                            setBrowserVersionsToFalse("Firefox", "65", "100");
+                                            setBrowserVersionsToFalse("Firefox", "93", "100");
+                                            setBrowserVersionsToFalse("Firefox Android", "93", "100");
                                         }
                                     }else{
-                                        setBrowserVersionsToFalse("Firefox", "64", "100");
+                                        setBrowserVersionsToFalse("Firefox", "92", "100");
+                                        setBrowserVersionsToFalse("Firefox Android", "92", "100");
                                     }
                                 }else{
-                                    setBrowserVersionsToFalse("Firefox", "63", "100");
+                                    setBrowserVersionsToFalse("Firefox", "91", "100");
+                                    setBrowserVersionsToFalse("Firefox Android", "91", "100");
                                 }
                             }else{
-                                setBrowserVersionsToFalse("Firefox", "62", "100");
+                                if(("MediaSession" in window && "webkitdirectory" in document.createElement("input") && "offset" in document.body.style) ||
+                                    ("MediaSession" in window && (!"webkitdirectory" in document.createElement("input")))){
+                                    setBrowserVersionsToFalse("Firefox", "50", "81");
+                                    if(Object.prototype.toString.call(Intl) === "[object Intl]"){
+                                        setBrowserVersionsToFalse("Firefox", "50", "82");
+                                        if("PerformancePaintTiming" in window){
+                                            setBrowserVersionsToFalse("Firefox", "50", "83");
+                                            if(!("HTMLMenuItemElement" in window) || CSS.supports("(touch-action:pinch-zoom)")){
+                                                setBrowserVersionsToFalse("Firefox", "50", "84");
+                                                if("DisplayNames" in Intl){
+                                                    setBrowserVersionsToFalse("Firefox", "50", "85");
+                                                    if("onbeforeinput" in window){
+                                                        setBrowserVersionsToFalse("Firefox", "50", "86");
+                                                        if("abort" in AbortSignal){
+                                                            setBrowserVersionsToFalse("Firefox", "50", "87");
+                                                            if("PerformanceEventTiming" in window){
+                                                                setBrowserVersionsToFalse("Firefox", "50", "88");
+                                                            }else{
+                                                                setBrowserVersionsToFalse("Firefox", "89", "100");
+                                                            }
+                                                        }else{
+                                                            setBrowserVersionsToFalse("Firefox", "88", "100");
+                                                        }
+                                                    }else{
+                                                        setBrowserVersionsToFalse("Firefox", "87", "100");
+                                                    }
+                                                }else{
+                                                    setBrowserVersionsToFalse("Firefox", "86", "100");
+                                                }
+                                            }else{
+                                                setBrowserVersionsToFalse("Firefox", "85", "100");
+                                            }
+                                        }else{
+                                            setBrowserVersionsToFalse("Firefox", "84", "100");
+                                        }
+                                    }else{
+                                        setBrowserVersionsToFalse("Firefox", "83", "100");
+                                    }
+                                }else{
+                                    setBrowserVersionsToFalse("Firefox", "82", "100");
+                                }
+                            }
+                        }else{
+                            if(coalesceSupport()){
+                                setBrowserVersionsToFalse("Firefox", "50", "71");
+                                if("overscrollBehaviorBlock" in document.body.style){
+                                    setBrowserVersionsToFalse("Firefox", "50", "72");
+                                    if("commit" in IDBTransaction.prototype){
+                                        setBrowserVersionsToFalse("Firefox", "50", "73");
+                                        if(CSS.supports("width", "min(50%,500px)") || CSS.supports("(width:min(50%,500px))")){
+                                            setBrowserVersionsToFalse("Firefox", "50", "74");
+                                            if("replaceAll" in String.prototype){
+                                                setBrowserVersionsToFalse("Firefox", "50", "76");
+                                                if("dotAll" in RegExp.prototype){
+                                                    setBrowserVersionsToFalse("Firefox", "50", "77");
+                                                    if("WeakRef" in window){
+                                                        setBrowserVersionsToFalse("Firefox", "50", "78");
+                                                        if("appearance" in document.body.style){
+                                                            setBrowserVersionsToFalse("Firefox", "50", "79");
+                                                        }else{
+                                                            setBrowserVersionsToFalse("Firefox", "80", "100");
+                                                        }
+                                                    }else{
+                                                        setBrowserVersionsToFalse("Firefox", "79", "100");
+                                                    }
+                                                }else{
+                                                    setBrowserVersionsToFalse("Firefox", "78", "100");
+                                                }
+                                            }else{
+                                                setBrowserVersionsToFalse("Firefox", "77", "100");
+                                            }
+                                        }else{
+                                            setBrowserVersionsToFalse("Firefox", "75", "100");
+                                        }
+                                    }else{
+                                        setBrowserVersionsToFalse("Firefox", "74", "100");
+                                    }
+                                }else{
+                                    setBrowserVersionsToFalse("Firefox", "73", "100");
+                                }
+                            }else{
+                                setBrowserVersionsToFalse("Firefox", "72", "100");
                             }
                         }
                     }else{
-                        setBrowserVersionsToFalse("Firefox", "90", "100");
-                        setBrowserVersionsToFalse("Firefox Android", "90", "100");
+                        if("flat" in Array.prototype){
+                            setBrowserVersionsToFalse("Firefox", "50", "61");
+                            if("gap" in document.body.style){
+                                setBrowserVersionsToFalse("Firefox", "50", "62");
+                                if("fullscreen" in document){
+                                    setBrowserVersionsToFalse("Firefox", "50", "63");
+                                    if("RelativeTimeFormat" in Intl){
+                                        setBrowserVersionsToFalse("Firefox", "50", "64");
+                                        if("inputType" in InputEvent.prototype){
+                                            setBrowserVersionsToFalse("Firefox", "50", "65");
+                                            if("matchAll" in String.prototype){//problem solved
+                                                setBrowserVersionsToFalse("Firefox", "50", "66");
+                                                if("BigInt64Array" in window){
+                                                    setBrowserVersionsToFalse("Firefox", "50", "67");
+                                                    if("onunhandledrejection" in window){
+                                                        setBrowserVersionsToFalse("Firefox", "50", "68");
+                                                        if("restartIce" in RTCPeerConnection){
+                                                            setBrowserVersionsToFalse("Firefox", "50", "69");
+                                                        }else{
+                                                            setBrowserVersionsToFalse("Firefox", "70", "100");
+                                                        }
+                                                    }else{
+                                                        setBrowserVersionsToFalse("Firefox", "69", "100");
+                                                    }
+                                                }else{
+                                                    setBrowserVersionsToFalse("Firefox", "68", "100");
+                                                }
+                                            }else{
+                                                setBrowserVersionsToFalse("Firefox", "67", "100");
+                                            }
+                                        }else{
+                                            setBrowserVersionsToFalse("Firefox", "66", "100");
+                                        }
+                                    }else{
+                                        setBrowserVersionsToFalse("Firefox", "65", "100");
+                                    }
+                                }else{
+                                    setBrowserVersionsToFalse("Firefox", "64", "100");
+                                }
+                            }else{
+                                setBrowserVersionsToFalse("Firefox", "63", "100");
+                            }
+                        }else{
+                            setBrowserVersionsToFalse("Firefox", "62", "100");
+                        }
                     }
                     /*
                     if("tabSize" in document.documentElement.style){
@@ -1064,13 +1163,13 @@
                 }else{
                     if("toJSON" in URL.prototype){
                         setBrowserVersionsToFalse("Firefox", "50", "53");
-                        if("requestIdleCallback" in window && "textJustify" in document.body.style){
+                        if("requestIdleCallback" in window && "textJustify" in document.documentElement.style){
                             setBrowserVersionsToFalse("Firefox", "50", "54");
                             if("secureConnectionStart" in PerformanceTiming.prototype){
                                 setBrowserVersionsToFalse("Firefox", "50", "55");
-                                if("AbortController" in window){
+                                if("PerformanceObserver" in window){
                                     setBrowserVersionsToFalse("Firefox", "50", "56");
-                                    if("PluralRules" in window){
+                                    if("PluralRules" in Intl){
                                         setBrowserVersionsToFalse("Firefox", "50", "57");
                                         if("autocomplete" in HTMLTextAreaElement.prototype){//Not Opera and not Edge!!!
                                             setBrowserVersionsToFalse("Firefox", "50", "58");
@@ -1269,8 +1368,8 @@
                                                 setBrowserVersionsToFalse("Firefox", "1", "16");
                                                 if("devicePixelRatio" in window){
                                                     setBrowserVersionsToFalse("Firefox", "1", "17");
-                                                    document.body.style.width = "50vw";
-                                                    if(parseInt(getComputedStyle(document.body, null).width, 10) == parseInt(window.innerWidth / 2, 10)){
+                                                    document.documentElement.style.width = "50vw";
+                                                    if(parseInt(getComputedStyle(document.documentElement, null).width, 10) == parseInt(window.innerWidth / 2, 10)){
                                                         setBrowserVersionsToFalse("Firefox", "1", "18");
                                                         if("download" in HTMLAnchorElement.prototype){
                                                             setBrowserVersionsToFalse("Firefox", "1", "19");
@@ -1280,7 +1379,7 @@
                                                     }else{
                                                         setBrowserVersionsToFalse("Firefox", "19", "55");
                                                     }
-                                                    document.body.style.width = undefined;
+                                                    document.documentElement.style.width = undefined;
                                                 }else{
                                                     setBrowserVersionsToFalse("Firefox", "18", "55");
                                                 }
@@ -1360,7 +1459,7 @@
             }*/
         }
         //TODO: justify for older versions (window.innerHeight, window.outerHeight, window.screenLeft)
-        if("webkitdirectory" in document.createElement("input") || "showModalDialog" in window || "ondragover" in window){
+        if("webkitdirectory" in document.createElement("input") || "showModalDialog" in window || "ondragover" in window || "offset" in document.documentElement.style){
             browsers["Firefox Android"] = undefined;
             os = ["Windows", "Linux", "macOS"];
         }else{
