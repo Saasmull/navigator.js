@@ -1,20 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>JavaScript Hacks</title>
-    <style>
-        *{
-            white-space:pre;
-        }
-    </style>
-</head>
-<body>
-<div id="x"></div>
-<!--script src="http://cdn.jsdelivr.net/npm/eruda"></script>
-<script>eruda.init();</script!-->
-<script>
-    //document.write("Detecting...")
+//document.write("Detecting...")
     var isDesktopMode = false;
     var os = ["Windows", "ChromeOS", "Android", "Linux", "macOS", "iOS", "iPadOS"];
     var HTMLengine = ["Trident", "EdgeHTML", "Gecko", "Blink", "Webkit", "Presto"];
@@ -2257,7 +2241,3 @@
             document.write("\n" + HTMLengine + "\n" + JSengine);
         }
     }, 1000)
-</script>
-
-</body>
-</html>
