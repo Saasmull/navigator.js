@@ -3,4 +3,4 @@
 
 Detect browser, os, runtime, libraries, cpu, hardware and more.
 
-Suported in Browser, Node.JS, Deno & others
+Supported in Browser, Node.JS, Deno & others
